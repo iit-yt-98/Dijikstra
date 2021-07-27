@@ -1,0 +1,31 @@
+ll n,m,k;                                                                                                //dijikstra
+
+vector<vector<ll>> d;
+vector<vector<ll>> routes;
+
+vector<vector<pair<ll , ll>>> adj;
+
+
+void dijikstra(int x){
+    set<pii> s;
+
+    d[x][x] = 0;
+
+    s.insert({0 , x});
+
+    while(!s.empty()){
+        int v = s.begin()->second;
+        s.erase(s.begin());
+
+        for(auto &nb : adj[v]){
+            int w = nb.second;
+            int to = nb.first;
+
+            if(d[x][v] + w < d[x][to] ){
+                s.erase({d[x][to] , to });
+                d[x][to] = d[x][v] + w;
+                s.insert({d[x][to] , to});
+            }
+        }
+    }
+}
